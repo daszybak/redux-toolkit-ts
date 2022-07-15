@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAllUsers } from "../users/usersSlice";
 import { addPost } from "./postsSlice";
 
 const AddPostForm = () => {
+  const dispatch = useDispatch();
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const dispatch = useDispatch();
+  const [userId, setUserId] = useState<string>("");
+
+  const users = useSelector(selectAllUsers);
 
   const handleTitleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -15,12 +19,24 @@ const AddPostForm = () => {
     setContent(e.target.value);
   };
 
+  const handleAuthorOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setUserId(e.target.id);
+  };
+
   const handleFormOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(addPost(title, content));
+    dispatch(addPost(title, content, userId));
     setTitle("");
     setContent("");
   };
+
+  const renderedUserOptions = users.map(({ id, name }) => {
+    return (
+      <option value={id} key={id}>
+        {name}
+      </option>
+    );
+  });
 
   return (
     <section>
@@ -35,6 +51,20 @@ const AddPostForm = () => {
             value={title}
             onChange={handleTitleOnChange}
           />
+        </div>
+        <div>
+          <label htmlFor="postAuthor">Author:</label>
+          <select
+            name="postAuthor"
+            id="postAuthor"
+            onChange={handleAuthorOnChange}
+            value={userId}
+          >
+            <>
+              <option value=""></option>
+              {renderedUserOptions}
+            </>
+          </select>
         </div>
         <div>
           <label htmlFor="postContent">Post Content: </label>
