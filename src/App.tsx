@@ -1,15 +1,15 @@
 import CounterDivide from "./features/counter-divideAll/Counter";
 import CounterSlice from "./features/counter-slice/Counter";
-import AddPost from "./features/posts/AddPostForm";
-import PostsList from "./features/posts/Posts";
+import AddPosts from "./features/posts-divideAll/AddPosts";
+import Posts from "./features/posts-divideAll/Posts";
 
 function App() {
   return (
     <div className="App">
       <CounterSlice />
       <CounterDivide />
-      <AddPost />
-      <PostsList />
+      <AddPosts />
+      <Posts />
     </div>
   );
 }

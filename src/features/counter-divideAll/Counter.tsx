@@ -28,6 +28,7 @@ const Counter = () => {
 
   return (
     <section>
+      <h1>Counter Divide All</h1>
       <p>Count: {count}</p>
       <button onClick={handleIncrementOnClick}>Increment</button>
       <button onClick={handleDecrementOnClick}>Decrement</button>
